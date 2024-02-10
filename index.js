@@ -30,7 +30,7 @@ function checkWinner(playerSelection, computerSelection) {
 // Plays a round and gives us a result 
 function playRound(playerSelection, computerSelection) {
     const result = checkWinner(playerSelection, computerSelection);
-    if(result === "Tie") {
+    if(result === "Tie"){
         return "It's a Tie!";
     }
     else if(result === "Player"){
@@ -41,6 +41,41 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = "rock";
+//Let's player choose the input into game
+function getPlayerChoice() {
+    let validatedInput = false;
+    while(validatedInput === false) {
+        const choice = prompt("Rock Paper Scissors");
+        if(choice === null){ //No answer, prompt stays
+            continue;
+        }
+        const choiceInLower = choice.toLowerCase();
+        if(options.includes(choiceInLower)){
+            validatedInput = true;
+            return choiceInLower; 
+        }
+    }
+}
+
+// Plays 5 games in a row
+function game() {
+    console.log("Welcome")    
+    for (let i = 0; i < 5; i++) {
+        const playerSelection = getPlayerChoice();
+        const computerSelection = getComputerChoice(); 
+        playRound(playerSelection, computerSelection);
+        console.log(playRound(playerSelection, computerSelection));
+    }
+    console.log("Game Over")
+}
+
+game();
+
+
+/* const playerSelection = "rock";
 const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+console.log(playRound(playerSelection, computerSelection)); */
+
+
+
+
