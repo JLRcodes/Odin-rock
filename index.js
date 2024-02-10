@@ -9,8 +9,25 @@ function getComputerChoice() {
     return choice;
 }
 
+//Fix a bug that returns a tie as a loss
+function checkWinner(playerSelection, computerSelection){
+    if(playerSelection == computerSelection){
+        return "Tie";
+    }
+    else if(
+        (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "paper") ||
+        (playerSelection == "paper" && computerSelection == "rock")
+    ){
+        return "Player";
+    }
+    else {
+        return "Computer";
+    }
+}
+
 // Checks who has won the game. Player or Computer
-function checkWinner(playerSelection, computerSelection) {
+/* function checkWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection){
         return "Tie!";
     }
@@ -25,7 +42,7 @@ function checkWinner(playerSelection, computerSelection) {
         return "Computer";
     }
 }
-
+ */
 
 // Plays a round and gives us a result 
 function playRound(playerSelection, computerSelection) {
@@ -59,14 +76,34 @@ function getPlayerChoice() {
 
 // Plays 5 games in a row
 function game() {
-    console.log("Welcome")    
+    let scorePlayer = 0;
+    let scoreComputer = 0;  
+      console.log("Welcome")    
     for (let i = 0; i < 5; i++) {
         const playerSelection = getPlayerChoice();
         const computerSelection = getComputerChoice(); 
         playRound(playerSelection, computerSelection);
         console.log(playRound(playerSelection, computerSelection));
+        console.log("-------------------");
+        if(checkWinner(playerSelection, computerSelection) === "Player"){
+            scorePlayer++;
+        }
+        else if (checkWinner(playerSelection, computerSelection) === "Computer"){
+            scoreComputer++;
+        }
     }
+
+    //Winner is declared
     console.log("Game Over")
+    if(scorePlayer > scoreComputer) {
+        console.log("Player is the winner");
+    }
+    else if (scorePlayer < scoreComputer) {
+        console.log("Computer is the winner");
+    }
+    else{
+        console.log("We have a tie!");
+    }
 }
 
 game();
